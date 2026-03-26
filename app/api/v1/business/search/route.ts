@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { checkAuth, jsonError, corsHeaders } from '@/lib/auth';
+import { checkAuth, checkRateLimit, jsonError, corsHeaders } from '@/lib/auth';
 import { queryCompanies, queryAllRegistries, mapRecord } from '@/lib/data-gov';
 
 // GET /api/v1/business/search?name=google
@@ -7,6 +7,7 @@ import { queryCompanies, queryAllRegistries, mapRecord } from '@/lib/data-gov';
 // GET /api/v1/business/search?id=513695478
 export async function GET(req: NextRequest) {
   if (!checkAuth(req)) return jsonError('Unauthorized. Provide a valid API key.', 401, 'UNAUTHORIZED');
+  if (!checkRateLimit(req)) return jsonError('Rate limit exceeded. Max 60 requests/min.', 429, 'RATE_LIMITED');
 
   const { searchParams } = new URL(req.url);
   const id = searchParams.get('id') || undefined;

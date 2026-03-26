@@ -415,7 +415,9 @@ Built by Lidor Behar
 </div>
 
 <script>
-var API='/api/v1/business',KEY='test-key-12345',H={'Content-Type':'application/json','X-API-Key':KEY};
+var API='/api/demo',API_FULL='/api/v1/business',H={'Content-Type':'application/json'};
+// Demo page uses /api/demo (public, rate-limited, no auth).
+// Phone lookup requires payment → uses /api/v1/business/phone with server-side key.
 var tc={company:'b',nonprofit:'p',partnership:'o',cooperative:'g'};
 var tl={company:'\u05D7\u05D1\u05E8\u05D4',nonprofit:'\u05E2\u05DE\u05D5\u05EA\u05D4',partnership:'\u05E9\u05D5\u05EA\u05E4\u05D5\u05EA',cooperative:'\u05D0\u05D2\u05D5\u05D3\u05D4'};
 var FREE_LIMIT=5;
@@ -450,7 +452,7 @@ function doSearch(){
   var ld=document.getElementById('ld'),res=document.getElementById('res'),sm=document.getElementById('sm'),em=document.getElementById('em');
   ld.className='ld show';res.innerHTML='';sm.className='smb';em.className='es';
   var isNum=/^\d{5,9}$/.test(q);
-  var url=isNum?API+'/enrich?id='+q:API+'/search?name='+encodeURIComponent(q)+'&registry=all&limit=20';
+  var url=API+'?q='+encodeURIComponent(q);
   fetch(url,{headers:H}).then(function(r){return r.json()}).then(function(d){
     ld.className='ld';
     if(!d.success){em.className='es show';return}
@@ -511,7 +513,7 @@ function togD(i,id){
   var p=document.getElementById('dp-'+i);
   if(p.className.indexOf('show')>-1){p.className='dp';return}
   p.className='dp show';if(!id)return;
-  fetch(API+'/enrich?id='+id,{headers:H}).then(function(r){return r.json()}).then(function(d){
+  fetch(API+'?q='+id).then(function(r){return r.json()}).then(function(d){
     if(!d.success){p.innerHTML='<div style="color:#dc2626">\u05DC\u05D0 \u05E0\u05DE\u05E6\u05D0</div>';return}
     var e=d.data.enrichment||{},risk=e.risk||{},comp=e.computed||{};
     var rc=risk.score>=75?'#059669':risk.score>=50?'#ea580c':'#dc2626';

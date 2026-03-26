@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { checkAuth, jsonError, corsHeaders } from '@/lib/auth';
+import { checkAuth, checkRateLimit, jsonError, corsHeaders } from '@/lib/auth';
 import { validateIsraeliId, validateBatch } from '@/lib/israeli-id';
 
 // GET /api/v1/business/validate?id=514713370
 export async function GET(req: NextRequest) {
   if (!checkAuth(req)) return jsonError('Unauthorized', 401, 'UNAUTHORIZED');
+  if (!checkRateLimit(req)) return jsonError('Rate limit exceeded', 429, 'RATE_LIMITED');
 
   const id = new URL(req.url).searchParams.get('id');
   if (!id) return jsonError('Provide ?id=NUMBER', 400, 'MISSING_PARAM');
@@ -18,6 +19,7 @@ export async function GET(req: NextRequest) {
 // Body: { "ids": ["514713370", "513695478", "123456789"] }
 export async function POST(req: NextRequest) {
   if (!checkAuth(req)) return jsonError('Unauthorized', 401, 'UNAUTHORIZED');
+  if (!checkRateLimit(req)) return jsonError('Rate limit exceeded', 429, 'RATE_LIMITED');
 
   const body = await req.json();
   const ids: string[] = body.ids;

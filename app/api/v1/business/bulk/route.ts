@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { checkAuth, jsonError, corsHeaders } from '@/lib/auth';
+import { checkAuth, checkRateLimit, jsonError, corsHeaders } from '@/lib/auth';
 import { queryCompanies, mapRecord } from '@/lib/data-gov';
 
 // POST /api/v1/business/bulk
 // Body: { "ids": [514713370, 513695478, 520036706] }
 export async function POST(req: NextRequest) {
   if (!checkAuth(req)) return jsonError('Unauthorized', 401, 'UNAUTHORIZED');
+  if (!checkRateLimit(req)) return jsonError('Rate limit exceeded', 429, 'RATE_LIMITED');
 
   const body = await req.json();
   const ids: number[] = body.ids;

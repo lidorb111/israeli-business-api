@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { checkAuth, jsonError, corsHeaders } from '@/lib/auth';
+import { checkAuth, checkRateLimit, jsonError, corsHeaders } from '@/lib/auth';
 import { queryCompanies } from '@/lib/data-gov';
 
 // GET /api/v1/business/autocomplete?q=גוג
 // Returns compact results optimized for dropdown/typeahead
 export async function GET(req: NextRequest) {
   if (!checkAuth(req)) return jsonError('Unauthorized', 401, 'UNAUTHORIZED');
+  if (!checkRateLimit(req)) return jsonError('Rate limit exceeded', 429, 'RATE_LIMITED');
 
   const q = new URL(req.url).searchParams.get('q');
   if (!q || q.length < 2) {

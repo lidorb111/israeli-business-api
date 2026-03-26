@@ -5,10 +5,10 @@ import { queryCompanies, mapRecord } from '@/lib/data-gov';
 // GET /api/cron/check-status — called by Vercel Cron daily
 // Checks all watched companies for status changes and fires webhooks
 export async function GET(req: NextRequest) {
-  // Verify cron secret
+  // Verify cron secret — ALWAYS required
   const authHeader = req.headers.get('authorization');
   const cronSecret = process.env.CRON_SECRET;
-  if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
+  if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
