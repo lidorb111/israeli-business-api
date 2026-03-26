@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAllWatches, updateWatchStatus } from '@/lib/watch-store';
 import { queryCompanies, mapRecord } from '@/lib/data-gov';
+import { validateWebhookUrl } from '@/lib/auth';
 
 // GET /api/cron/check-status — called by Vercel Cron daily
 // Checks all watched companies for status changes and fires webhooks
@@ -30,11 +31,19 @@ export async function GET(req: NextRequest) {
       // If status changed since last check
       if (watch.lastStatus && currentStatus !== watch.lastStatus) {
         changes++;
-        // Fire webhook
+        // Re-validate webhook URL before firing (defense in depth against SSRF)
+        const urlError = validateWebhookUrl(watch.webhookUrl);
+        if (urlError) {
+          console.error(`Skipping webhook for ${watch.companyId}: ${urlError}`);
+          continue;
+        }
+        // Fire webhook with timeout
         try {
+          const controller = new AbortController();
+          const timeout = setTimeout(() => controller.abort(), 10000);
           await fetch(watch.webhookUrl, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'User-Agent': 'BeharSystems-Webhook/1.0' },
             body: JSON.stringify({
               event: 'status_changed',
               companyId: watch.companyId,
@@ -43,15 +52,17 @@ export async function GET(req: NextRequest) {
               currentStatus,
               timestamp: new Date().toISOString(),
             }),
+            signal: controller.signal,
           });
-        } catch (e) {
-          console.error(`Webhook failed for ${watch.companyId}:`, e);
+          clearTimeout(timeout);
+        } catch {
+          // Webhook delivery failed — logged but not thrown
         }
       }
 
       updateWatchStatus(watch.id, currentStatus);
-    } catch (e) {
-      console.error(`Check failed for ${watch.companyId}:`, e);
+    } catch {
+      // Individual company check failed — continue with next
     }
   }
 
