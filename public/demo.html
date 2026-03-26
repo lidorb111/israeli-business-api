@@ -6,7 +6,10 @@
 <title>בדיקת חברות ישראליות — חיפוש, אימות, ציון סיכון</title>
 <meta name="description" content="חפש מידע על 832,000+ חברות, עמותות, שותפויות ואגודות שיתופיות ישראליות. אימות ח.פ., ציון סיכון, מספרי טלפון."/>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-<script src="https://www.paypal.com/sdk/js?client-id=ARGyyI09aiwcOXJZXuCNYdFyB153YrEjaUdqJvlcWt2cS_D7Epz-br3CUd_CSw6CDP5gaq_Z1QiHR6KK&currency=ILS&locale=he_IL"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=ARGyyI09aiwcOXJZXuCNYdFyB153YrEjaUdqJvlcWt2cS_D7Epz-br3CUd_CSw6CDP5gaq_Z1QiHR6KK&currency=ILS&locale=he_IL&enable-funding=applepay,venmo"></script>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="theme-color" content="#0f172a"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Heebo',-apple-system,sans-serif;background:#fafbfc;color:#1a1a2e;direction:rtl;-webkit-font-smoothing:antialiased}
@@ -179,14 +182,73 @@ a,button{transition:all .25s cubic-bezier(.4,0,.2,1)}
 .modal-close{display:block;margin-top:16px;color:#94a3b8;font-size:13px;cursor:pointer;background:none;border:none;font-family:inherit}
 
 /* Phone modal */
-.phone-modal{background:#fff;border-radius:20px;padding:40px;max-width:440px;width:90%;text-align:center;animation:modalIn .3s ease}
-.phone-result{background:#f8fafc;border-radius:12px;padding:20px;margin:20px 0;text-align:right}
-.phone-result .phone-num{font-size:24px;font-weight:800;color:#1a1a2e;direction:ltr;text-align:right}
+.phone-modal{background:#fff;border-radius:20px;padding:32px;max-width:420px;width:92%;text-align:center;animation:modalIn .3s ease}
+.phone-result{background:#f8fafc;border-radius:12px;padding:20px;margin:16px 0;text-align:right}
+.phone-result .phone-num{font-size:28px;font-weight:800;color:#1a1a2e;direction:ltr;text-align:right}
 .phone-result .phone-detail{font-size:13px;color:#64748b;margin-top:4px}
+
+/* Phone purchase options */
+.phone-options{display:flex;flex-direction:column;gap:10px;margin:20px 0;text-align:right}
+.phone-opt{border:1px solid #e2e8f0;border-radius:12px;padding:16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.phone-opt:hover{border-color:#2563eb;background:#f8fafc}
+.phone-opt.selected{border-color:#2563eb;background:#eff6ff}
+.phone-opt-info h4{font-size:15px;font-weight:600;margin-bottom:2px}
+.phone-opt-info p{font-size:12px;color:#64748b}
+.phone-opt-price{font-size:18px;font-weight:800;color:#1a1a2e;white-space:nowrap}
+.phone-opt-price span{font-size:12px;font-weight:400;color:#94a3b8}
+.phone-paypal{margin-top:12px;min-height:55px}
+.phone-or{color:#94a3b8;font-size:13px;margin:12px 0;display:flex;align-items:center;gap:12px}
+.phone-or::before,.phone-or::after{content:'';flex:1;height:1px;background:#e2e8f0}
 
 @media(max-width:768px){
 .nav-links a:not(.nav-cta){display:none}
-.hero h1{font-size:30px}.hero p{font-size:16px}.sb{flex-direction:column}.sb button{width:100%}.stats{gap:24px}.feat-grid{grid-template-columns:1fr}.price-grid{grid-template-columns:1fr}.rh{flex-direction:column}.dg{grid-template-columns:1fr}.enriched-stats{grid-template-columns:1fr}
+.nav{padding:12px 16px}
+.hero{padding:40px 16px 80px}
+.hero h1{font-size:28px;line-height:1.3}
+.hero p{font-size:15px;margin-bottom:28px}
+.sb{flex-direction:column;border-radius:14px;padding:4px}
+.sb input{padding:14px 16px;font-size:16px;text-align:right}
+.sb button{width:100%;padding:14px;border-radius:10px}
+.stats{gap:12px}
+.st{padding:10px 14px}
+.st-n{font-size:20px}
+.counter-wrap{flex-direction:column;gap:6px;text-align:center}
+.suggestions{gap:6px}
+.sug{padding:5px 12px;font-size:12px}
+.ra{padding:0 12px 40px;margin-top:-50px}
+.rc{padding:16px;margin-bottom:8px}
+.rn{font-size:16px}
+.rm{gap:10px}
+.feat-grid{grid-template-columns:1fr;gap:12px}
+.feat{padding:20px}
+.price-grid{grid-template-columns:1fr;gap:12px}
+.price-card{padding:24px}
+.price-amount{font-size:36px}
+.rh{flex-direction:column;gap:8px}
+.dg{grid-template-columns:1fr}
+.enriched-stats{grid-template-columns:1fr}
+.enriched-stat{padding:16px}
+.enriched-stat-n{font-size:28px}
+.phone-upsell{flex-direction:column;text-align:center;gap:8px}
+.phone-upsell-btn{width:100%}
+.modal{padding:28px 20px;width:94%}
+.phone-modal{padding:24px 16px;width:94%}
+.cta{padding:50px 16px}
+.cta h2{font-size:22px}
+.features{padding:50px 16px}
+.features h2{font-size:24px}
+.pricing{padding:50px 16px}
+.pricing h2{font-size:24px}
+.search-hint{font-size:12px}
+}
+
+/* Extra small */
+@media(max-width:380px){
+.hero h1{font-size:24px}
+.stats{gap:8px}
+.st{padding:8px 10px}
+.st-n{font-size:18px}
+.st-l{font-size:11px}
 }
 </style>
 </head>
@@ -346,13 +408,9 @@ Built by Lidor Behar
 </div>
 
 <!-- Phone upsell modal -->
-<div class="modal-bg" id="phone-modal">
+<div class="modal-bg" id="phone-modal" onclick="if(event.target===this)this.className='modal-bg'">
 <div class="phone-modal">
-<div id="phone-content">
-<h3>&#x1F4DE; מספר טלפון</h3>
-<p>קבלו טלפון, אתר אינטרנט, ודירוג Google</p>
-<div id="phone-result"></div>
-</div>
+<div id="phone-content"></div>
 </div>
 </div>
 
@@ -467,24 +525,109 @@ function togD(i,id){
   }).catch(function(){p.innerHTML='<div style="color:#dc2626">\u05E9\u05D2\u05D9\u05D0\u05D4</div>'});
 }
 
+var pendingPhoneId=null;
+
 function getPhone(id){
-  if(!isPremium){
-    document.getElementById('phone-content').innerHTML='<h3>&#x1F4DE; \u05DE\u05E1\u05E4\u05E8 \u05D8\u05DC\u05E4\u05D5\u05DF</h3><p>\u05E7\u05D1\u05DC\u05EA \u05DE\u05E1\u05E4\u05E8 \u05D8\u05DC\u05E4\u05D5\u05DF \u05D6\u05DE\u05D9\u05E0\u05D4 \u05E8\u05E7 \u05D1\u05D7\u05D1\u05D9\u05DC\u05EA <b>\u05E4\u05E8\u05D9\u05DE\u05D9\u05D5\u05DD</b> (&#8362;179/\u05D7\u05D5\u05D3\u05E9).</p><a class="modal-btn" href="#pricing" onclick="document.getElementById(\'phone-modal\').className=\'modal-bg\'">\u05E9\u05D3\u05E8\u05D2\u05D5 \u05DC\u05E4\u05E8\u05D9\u05DE\u05D9\u05D5\u05DD</a><button class="modal-close" onclick="document.getElementById(\'phone-modal\').className=\'modal-bg\'">\u05D0\u05D5\u05DC\u05D9 \u05D0\u05D7\u05E8 \u05DB\u05DA</button>';
-    document.getElementById('phone-modal').className='modal-bg show';
+  pendingPhoneId=id;
+
+  if(isPremium){
+    fetchPhone(id);
     return;
   }
-  document.getElementById('phone-content').innerHTML='<div class="sp"></div><p>\u05DE\u05D7\u05E4\u05E9 \u05D8\u05DC\u05E4\u05D5\u05DF...</p>';
+
+  // Show purchase options
+  document.getElementById('phone-content').innerHTML=
+    '<h3 style="font-size:20px;margin-bottom:4px">&#x1F4DE; \u05D2\u05DC\u05D5 \u05D8\u05DC\u05E4\u05D5\u05DF</h3>'+
+    '<p style="color:#64748b;font-size:14px;margin-bottom:20px">\u05D8\u05DC\u05E4\u05D5\u05DF, \u05D0\u05EA\u05E8, \u05D3\u05D9\u05E8\u05D5\u05D2 Google, \u05D5\u05E7\u05D9\u05E9\u05D5\u05E8 \u05DC\u05DE\u05E4\u05D4</p>'+
+    '<div class="phone-options">'+
+      '<div class="phone-opt selected" onclick="selectPhoneOpt(this,\'single\')" id="opt-single">'+
+        '<div class="phone-opt-info"><h4>&#x1F4F1; \u05D7\u05E9\u05D9\u05E4\u05D4 \u05D7\u05D3 \u05E4\u05E2\u05DE\u05D9\u05EA</h4><p>\u05D8\u05DC\u05E4\u05D5\u05DF \u05E9\u05DC \u05D7\u05D1\u05E8\u05D4 \u05D0\u05D7\u05EA</p></div>'+
+        '<div class="phone-opt-price">&#8362;5</div>'+
+      '</div>'+
+      '<div class="phone-opt" onclick="selectPhoneOpt(this,\'pack\')" id="opt-pack">'+
+        '<div class="phone-opt-info"><h4>&#x1F4E6; \u05D7\u05D1\u05D9\u05DC\u05EA 10 \u05D7\u05E9\u05D9\u05E4\u05D5\u05EA</h4><p>\u05D7\u05D9\u05E1\u05DB\u05D5\u05DF 50% \u2014 \u05E8\u05E7 &#8362;2.5 \u05DC\u05D7\u05E9\u05D9\u05E4\u05D4</p></div>'+
+        '<div class="phone-opt-price">&#8362;25 <span>\u05D1\u05DE\u05E7\u05D5\u05DD &#8362;50</span></div>'+
+      '</div>'+
+      '<div class="phone-opt" onclick="selectPhoneOpt(this,\'unlimited\')" id="opt-unlimited">'+
+        '<div class="phone-opt-info"><h4>&#x1F451; \u05E4\u05E8\u05D9\u05DE\u05D9\u05D5\u05DD \u05D7\u05D5\u05D3\u05E9\u05D9</h4><p>\u05D7\u05E9\u05D9\u05E4\u05D5\u05EA \u05D8\u05DC\u05E4\u05D5\u05DF \u05DC\u05DC\u05D0 \u05D4\u05D2\u05D1\u05DC\u05D4 + \u05DB\u05DC \u05D4\u05D9\u05EA\u05E8\u05D5\u05E0\u05D5\u05EA</p></div>'+
+        '<div class="phone-opt-price">&#8362;179<span>/\u05D7\u05D5\u05D3\u05E9</span></div>'+
+      '</div>'+
+    '</div>'+
+    '<div class="phone-paypal" id="phone-paypal-container"></div>'+
+    '<button class="modal-close" onclick="document.getElementById(\'phone-modal\').className=\'modal-bg\'">\u05D0\u05D5\u05DC\u05D9 \u05D0\u05D7\u05E8 \u05DB\u05DA</button>';
+
+  document.getElementById('phone-modal').className='modal-bg show';
+  renderPhonePaypal('single');
+}
+
+var currentPhoneOpt='single';
+function selectPhoneOpt(el,opt){
+  currentPhoneOpt=opt;
+  document.querySelectorAll('.phone-opt').forEach(function(o){o.className='phone-opt'});
+  el.className='phone-opt selected';
+  renderPhonePaypal(opt);
+}
+
+function renderPhonePaypal(opt){
+  var container=document.getElementById('phone-paypal-container');
+  if(!container)return;
+  container.innerHTML='';
+  var amounts={single:'5.00',pack:'25.00',unlimited:'179.00'};
+  var descs={single:'\u05D7\u05E9\u05D9\u05E4\u05EA \u05D8\u05DC\u05E4\u05D5\u05DF \u05D7\u05D3 \u05E4\u05E2\u05DE\u05D9\u05EA',pack:'10 \u05D7\u05E9\u05D9\u05E4\u05D5\u05EA \u05D8\u05DC\u05E4\u05D5\u05DF',unlimited:'\u05E4\u05E8\u05D9\u05DE\u05D9\u05D5\u05DD \u05D7\u05D5\u05D3\u05E9\u05D9'};
+
+  if(window.paypal){
+    paypal.Buttons({
+      style:{layout:'horizontal',color:opt==='unlimited'?'gold':'blue',shape:'pill',label:'pay',height:48,tagline:false},
+      createOrder:function(data,actions){
+        return actions.order.create({purchase_units:[{amount:{value:amounts[opt],currency_code:'ILS'},description:descs[opt]}]});
+      },
+      onApprove:function(data,actions){
+        return actions.order.capture().then(function(details){
+          if(opt==='unlimited'){
+            localStorage.setItem('biz_plan','premium');isPremium=true;updateCounter();
+          }else if(opt==='pack'){
+            var credits=parseInt(localStorage.getItem('phone_credits')||'0');
+            localStorage.setItem('phone_credits',credits+10);
+          }else{
+            var credits=parseInt(localStorage.getItem('phone_credits')||'0');
+            localStorage.setItem('phone_credits',credits+1);
+          }
+          fetchPhone(pendingPhoneId);
+        });
+      }
+    }).render('#phone-paypal-container');
+  }
+}
+
+function fetchPhone(id){
+  document.getElementById('phone-content').innerHTML='<div class="sp"></div><p style="color:#94a3b8">\u05DE\u05D7\u05E4\u05E9 \u05D8\u05DC\u05E4\u05D5\u05DF...</p>';
   document.getElementById('phone-modal').className='modal-bg show';
   fetch(API+'/phone?id='+id,{headers:H}).then(function(r){return r.json()}).then(function(d){
     if(!d.success||!d.data.contact){
-      document.getElementById('phone-content').innerHTML='<h3>&#x1F4DE;</h3><p>\u05DC\u05D0 \u05E0\u05DE\u05E6\u05D0 \u05DE\u05E1\u05E4\u05E8 \u05D8\u05DC\u05E4\u05D5\u05DF \u05DC\u05D7\u05D1\u05E8\u05D4 \u05D6\u05D5.</p><button class="modal-close" onclick="document.getElementById(\'phone-modal\').className=\'modal-bg\'">\u05E1\u05D2\u05D5\u05E8</button>';
+      document.getElementById('phone-content').innerHTML='<h3 style="font-size:48px;margin-bottom:12px">&#x1F614;</h3><h3>\u05DC\u05D0 \u05E0\u05DE\u05E6\u05D0 \u05D8\u05DC\u05E4\u05D5\u05DF</h3><p style="color:#64748b;margin:12px 0">\u05DC\u05D0 \u05E0\u05DE\u05E6\u05D0 \u05DE\u05E1\u05E4\u05E8 \u05D8\u05DC\u05E4\u05D5\u05DF \u05DC\u05D7\u05D1\u05E8\u05D4 \u05D6\u05D5. \u05D4\u05E7\u05E8\u05D3\u05D9\u05D8 \u05DC\u05D0 \u05E0\u05D5\u05E6\u05DC.</p><button class="modal-btn" onclick="document.getElementById(\'phone-modal\').className=\'modal-bg\'">\u05E1\u05D2\u05D5\u05E8</button>';
       return;
     }
+    // Deduct credit if not premium
+    if(!isPremium){
+      var credits=parseInt(localStorage.getItem('phone_credits')||'0');
+      if(credits>0)localStorage.setItem('phone_credits',credits-1);
+    }
     var ct=d.data.contact;
-    document.getElementById('phone-content').innerHTML='<h3>&#x1F4DE; '+d.data.name+'</h3><div class="phone-result"><div class="phone-num">'+(ct.phone||'-')+'</div><div class="phone-detail">'+(ct.phoneInternational||'')+'</div></div>'+
-    (ct.website?'<div style="text-align:right;margin:8px 0"><a href="'+ct.website+'" target="_blank" style="color:#2563eb;font-size:14px">&#x1F310; '+ct.website+'</a></div>':'')+
-    (ct.rating?'<div style="text-align:right;font-size:14px;color:#64748b">\u2B50 '+ct.rating+' ('+ct.reviewCount+' \u05D1\u05D9\u05E7\u05D5\u05E8\u05D5\u05EA)</div>':'')+
-    '<button class="modal-close" onclick="document.getElementById(\'phone-modal\').className=\'modal-bg\'">\u05E1\u05D2\u05D5\u05E8</button>';
+    document.getElementById('phone-content').innerHTML=
+      '<h3 style="font-size:18px;margin-bottom:4px">'+d.data.name+'</h3>'+
+      (d.data.nameEn?'<p style="color:#94a3b8;font-size:13px;direction:ltr">'+d.data.nameEn+'</p>':'')+
+      '<div class="phone-result">'+
+        '<div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">'+
+          '<div style="width:44px;height:44px;background:#eff6ff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">&#x1F4DE;</div>'+
+          '<div><div class="phone-num">'+(ct.phone||'-')+'</div><div class="phone-detail">'+(ct.phoneInternational||'')+'</div></div>'+
+        '</div>'+
+        (ct.website?'<div style="display:flex;align-items:center;gap:12px;padding-top:12px;border-top:1px solid #e2e8f0"><div style="width:44px;height:44px;background:#ecfdf5;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">&#x1F310;</div><a href="'+ct.website+'" target="_blank" style="color:#2563eb;font-size:14px;word-break:break-all">'+ct.website+'</a></div>':'')+
+        (ct.rating?'<div style="display:flex;align-items:center;gap:12px;padding-top:12px;border-top:1px solid #e2e8f0"><div style="width:44px;height:44px;background:#fffbeb;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">\u2B50</div><div><div style="font-size:18px;font-weight:700">'+ct.rating+'</div><div style="font-size:12px;color:#94a3b8">'+ct.reviewCount+' \u05D1\u05D9\u05E7\u05D5\u05E8\u05D5\u05EA \u05D1\u05D2\u05D5\u05D2\u05DC</div></div></div>':'')+
+        (ct.googleMapsUrl?'<a href="'+ct.googleMapsUrl+'" target="_blank" style="display:block;margin-top:12px;padding:12px;background:#eff6ff;border-radius:8px;text-align:center;color:#2563eb;font-size:14px;font-weight:600;text-decoration:none">&#x1F4CD; \u05E4\u05EA\u05D7 \u05D1\u05D2\u05D5\u05D2\u05DC \u05DE\u05E4\u05D5\u05EA</a>':'')+
+      '</div>'+
+      '<button class="modal-btn" style="width:100%" onclick="document.getElementById(\'phone-modal\').className=\'modal-bg\'">\u05E1\u05D2\u05D5\u05E8</button>';
+  }).catch(function(){
+    document.getElementById('phone-content').innerHTML='<h3>\u05E9\u05D2\u05D9\u05D0\u05D4</h3><p style="color:#64748b">\u05DC\u05D0 \u05D4\u05E6\u05DC\u05D7\u05E0\u05D5 \u05DC\u05DE\u05E6\u05D5\u05D0 \u05D8\u05DC\u05E4\u05D5\u05DF. \u05E0\u05E1\u05D5 \u05E9\u05D5\u05D1.</p><button class="modal-btn" onclick="document.getElementById(\'phone-modal\').className=\'modal-bg\'">\u05E1\u05D2\u05D5\u05E8</button>';
   });
 }
 
