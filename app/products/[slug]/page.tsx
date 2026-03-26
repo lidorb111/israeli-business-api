@@ -21,106 +21,82 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const isLive = product.status === 'live';
 
   return (
-    <main style={{ fontFamily: 'system-ui, sans-serif', maxWidth: 900, margin: '0 auto', padding: '40px 20px' }}>
-      <Link href="/products" style={{ color: '#2563eb', textDecoration: 'none', fontWeight: 600 }}>
-        ← Back to Catalog
-      </Link>
-
-      <section style={{ marginTop: 18, border: '1px solid #e2e8f0', borderRadius: 16, padding: 24 }}>
-        <p style={{ marginBottom: 6, color: '#334155', fontSize: 13 }}>Day {product.day}</p>
-        <h1 style={{ fontSize: 40, margin: '0 0 8px' }}>{product.name}</h1>
-        <p style={{ color: '#475569', fontSize: 18, marginBottom: 14 }}>{product.oneLiner}</p>
-
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 18 }}>
-          <span
-            style={{
-              fontSize: 12,
-              fontWeight: 700,
-              padding: '5px 10px',
-              borderRadius: 999,
-              background: isLive ? '#dcfce7' : '#e2e8f0',
-              color: isLive ? '#166534' : '#334155',
-            }}
-          >
-            {isLive ? 'Live' : 'Coming Soon'}
-          </span>
-          <span style={{ fontSize: 12, fontWeight: 700, padding: '5px 10px', borderRadius: 999, background: '#eff6ff', color: '#1d4ed8' }}>
-            {product.category}
-          </span>
-          <span style={{ fontSize: 12, fontWeight: 700, padding: '5px 10px', borderRadius: 999, background: '#f8fafc', color: '#334155' }}>
-            {product.priceLabel}
-          </span>
+    <main>
+      {/* Nav */}
+      <nav className="nav">
+        <div className="nav-inner">
+          <Link href="/" className="nav-brand">Behar Systems</Link>
+          <div className="nav-links">
+            <Link href="/products" className="nav-link">Products</Link>
+            <a href="https://github.com/lidorb111/israeli-business-api" className="nav-link">Docs</a>
+            <a href="https://rapidapi.com/team/behar-system-behar-system-default" className="nav-link">Pricing</a>
+          </div>
         </div>
+      </nav>
 
-        <p style={{ marginBottom: 16 }}>
-          <strong>Audience:</strong> {product.audience}
-        </p>
+      <div style={{ maxWidth: 720, margin: '0 auto', padding: '0 20px 100px' }}>
+        <Link href="/products" className="detail-back">
+          ‹ Products
+        </Link>
 
-        <h2 style={{ fontSize: 20, marginBottom: 8 }}>What this product does</h2>
-        <ul style={{ margin: '0 0 20px 20px' }}>
-          {product.valuePoints.map((point) => (
-            <li key={point} style={{ marginBottom: 6 }}>
-              {point}
-            </li>
-          ))}
-        </ul>
+        <section className="detail-hero">
+          <p style={{ fontSize: 12, color: '#86868b', fontWeight: 500, marginBottom: 8 }}>Day {product.day}</p>
+          <h1>{product.name}</h1>
+          <p>{product.oneLiner}</p>
 
-        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-          {product.demoUrl && (
+          <div className="detail-badges">
+            <span className={`detail-badge ${isLive ? 'detail-badge-live' : ''}`}>
+              {isLive ? 'Available Now' : 'Coming Soon'}
+            </span>
+            <span className="detail-badge detail-badge-blue">{product.category}</span>
+            <span className="detail-badge">{product.priceLabel}</span>
+          </div>
+        </section>
+
+        <section className="detail-card" style={{ marginBottom: 20 }}>
+          <p style={{ fontSize: 14, color: '#86868b', marginBottom: 16 }}>
+            <strong style={{ color: '#1d1d1f' }}>Audience:</strong> {product.audience}
+          </p>
+
+          <h2>What you get</h2>
+          <ul>
+            {product.valuePoints.map((point) => (
+              <li key={point}>{point}</li>
+            ))}
+          </ul>
+
+          <div className="detail-actions">
+            {product.demoUrl && (
+              <a href={product.demoUrl} className="btn-primary">
+                Try Demo <span style={{ fontSize: 20 }}>›</span>
+              </a>
+            )}
             <a
-              href={product.demoUrl}
-              style={{
-                textDecoration: 'none',
-                background: '#0f172a',
-                color: '#fff',
-                borderRadius: 10,
-                padding: '12px 16px',
-                fontSize: 14,
-                fontWeight: 700,
-              }}
-            >
-              Open Demo
-            </a>
-          )}
-
-          <a
-            href={product.rapidApiUrl}
-            target="_blank"
-            rel="noreferrer"
-            style={{
-              textDecoration: 'none',
-              background: '#2563eb',
-              color: '#fff',
-              borderRadius: 10,
-              padding: '12px 16px',
-              fontSize: 14,
-              fontWeight: 700,
-            }}
-          >
-            RapidAPI Listing
-          </a>
-
-          {product.apifyUrl && (
-            <a
-              href={product.apifyUrl}
+              href={product.rapidApiUrl}
               target="_blank"
               rel="noreferrer"
-              style={{
-                textDecoration: 'none',
-                background: '#f8fafc',
-                color: '#0f172a',
-                border: '1px solid #cbd5e1',
-                borderRadius: 10,
-                padding: '12px 16px',
-                fontSize: 14,
-                fontWeight: 700,
-              }}
+              className="btn-primary"
+              style={{ background: '#1d1d1f' }}
             >
-              Apify Listing
+              RapidAPI <span style={{ fontSize: 20 }}>›</span>
             </a>
-          )}
-        </div>
-      </section>
+            {product.apifyUrl && (
+              <a
+                href={product.apifyUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-secondary"
+              >
+                Apify <span style={{ fontSize: 20 }}>›</span>
+              </a>
+            )}
+          </div>
+        </section>
+      </div>
+
+      <footer className="footer">
+        <p>© 2025 Behar Systems. All rights reserved.</p>
+      </footer>
     </main>
   );
 }
