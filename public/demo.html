@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Israeli Business API — Search 832K+ Entities</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',-apple-system,sans-serif;background:#fafbfc;color:#1a1a2e}
+.hero{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#1a4a7a 100%);padding:60px 20px 80px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 50%,rgba(56,189,248,.08) 0%,transparent 50%),radial-gradient(circle at 70% 50%,rgba(99,102,241,.06) 0%,transparent 50%);animation:fl 20s ease-in-out infinite}
+@keyframes fl{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,10px)}}
+.hero-c{position:relative;z-index:1;max-width:700px;margin:0 auto}
+.hero h1{color:#fff;font-size:42px;font-weight:800;margin-bottom:12px;letter-spacing:-1px}
+.hero p{color:#94a3b8;font-size:18px;margin-bottom:36px;line-height:1.6}
+.hl{color:#38bdf8}
+.sb{background:#fff;border-radius:20px;padding:8px;display:flex;gap:0;box-shadow:0 25px 60px rgba(0,0,0,.3),0 0 0 1px rgba(255,255,255,.1);max-width:600px;margin:0 auto}
+.sb input{flex:1;border:none;outline:none;padding:18px 24px;font-size:18px;font-family:inherit;border-radius:16px;color:#1a1a2e;background:transparent;min-width:0}
+.sb input::placeholder{color:#94a3b8}
+.sb button{background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;border:none;padding:18px 32px;font-size:16px;font-weight:600;border-radius:14px;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .2s}
+.sb button:hover{transform:scale(1.02);box-shadow:0 4px 15px rgba(37,99,235,.4)}
+.sb button:active{transform:scale(.98)}
+.stats{display:flex;justify-content:center;gap:40px;margin-top:32px;flex-wrap:wrap}
+.st{text-align:center}
+.st-n{color:#fff;font-size:24px;font-weight:700}
+.st-l{color:#64748b;font-size:13px;margin-top:4px}
+.ra{max-width:800px;margin:-40px auto 0;padding:0 20px 60px;position:relative;z-index:2}
+.ld{text-align:center;padding:40px;color:#64748b;display:none}
+.ld.show{display:block}
+.sp{width:36px;height:36px;border:3px solid #e2e8f0;border-top-color:#2563eb;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.rc{background:#fff;border-radius:16px;padding:24px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid #f0f0f5;transition:all .2s;cursor:pointer}
+.rc:hover{box-shadow:0 8px 25px rgba(0,0,0,.08);transform:translateY(-2px)}
+.rh{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
+.rn{font-size:18px;font-weight:700;color:#1a1a2e}
+.rne{font-size:14px;color:#64748b;margin-top:2px}
+.bd{display:inline-flex;align-items:center;padding:4px 12px;border-radius:100px;font-size:12px;font-weight:600;white-space:nowrap}
+.bd-g{background:#ecfdf5;color:#059669}
+.bd-r{background:#fef2f2;color:#dc2626}
+.bd-o{background:#fff7ed;color:#ea580c}
+.bd-b{background:#eff6ff;color:#2563eb}
+.bd-p{background:#f5f3ff;color:#7c3aed}
+.bd-gr{background:#f8fafc;color:#64748b}
+.rm{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid #f0f0f5}
+.mi{font-size:13px;color:#64748b;display:flex;align-items:center;gap:4px}
+.dp{display:none;margin-top:16px;padding-top:16px;border-top:1px solid #f0f0f5}
+.dp.show{display:block}
+.rb{height:8px;background:#f0f0f5;border-radius:4px;overflow:hidden;margin-top:8px}
+.rf{height:100%;border-radius:4px;transition:width .6s ease}
+.smb{background:#fff;border-radius:16px;padding:16px 24px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid #f0f0f5;display:none;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.smb.show{display:flex}
+.smt{font-size:15px;color:#64748b}
+.smt strong{color:#1a1a2e}
+.smty{display:flex;gap:8px;flex-wrap:wrap}
+.es{text-align:center;padding:60px 20px;display:none}
+.es.show{display:block}
+.es .icon{font-size:48px;margin-bottom:16px}
+.es p{color:#94a3b8;font-size:16px}
+.dg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.di .dl{font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px}
+.di .dv{font-size:14px;color:#1a1a2e;font-weight:500;margin-top:2px}
+.ft{text-align:center;padding:40px 20px;color:#94a3b8;font-size:13px}
+.ft a{color:#2563eb;text-decoration:none}
+@media(max-width:640px){
+.hero h1{font-size:28px}.hero p{font-size:15px}.sb{flex-direction:column}.sb button{width:100%}.stats{gap:24px}.dg{grid-template-columns:1fr}.rh{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+<div class="hero-c">
+<h1>Search Any Israeli Business</h1>
+<p>Search <span class="hl">832,968</span> companies, nonprofits, partnerships &amp; cooperatives from the official government registry</p>
+<div class="sb">
+<input id="q" type="text" placeholder="Search by name or number..." autofocus/>
+<button onclick="doSearch()">Search</button>
+</div>
+<div class="stats">
+<div class="st"><div class="st-n">722K</div><div class="st-l">Companies</div></div>
+<div class="st"><div class="st-n">74K</div><div class="st-l">Nonprofits</div></div>
+<div class="st"><div class="st-n">28K</div><div class="st-l">Partnerships</div></div>
+<div class="st"><div class="st-n">7K</div><div class="st-l">Cooperatives</div></div>
+</div>
+</div>
+</div>
+
+<div class="ra">
+<div class="ld" id="ld"><div class="sp"></div>Searching all registries...</div>
+<div class="smb" id="sm"></div>
+<div id="res"></div>
+<div class="es" id="em"><div class="icon">&#128269;</div><p>No results found. Try a different search.</p></div>
+</div>
+
+<div class="ft">
+Powered by <a href="https://data.gov.il" target="_blank">data.gov.il</a> &mdash; Israeli Corporations Authority<br/>
+<a href="https://rapidapi.com" target="_blank">Get API Access &rarr;</a>
+</div>
+
+<script>
+var API='/api/v1/business',KEY='test-key-12345',H={'Content-Type':'application/json','X-API-Key':KEY};
+var tc={company:'b',nonprofit:'p',partnership:'o',cooperative:'g'};
+var tl={company:'Company',nonprofit:'Nonprofit',partnership:'Partnership',cooperative:'Cooperative'};
+
+document.getElementById('q').addEventListener('keydown',function(e){if(e.key==='Enter')doSearch()});
+
+function sb(s){
+  if(!s)return'';
+  var c='gr';
+  if(s.indexOf('\u05E4\u05E2\u05D9\u05DC\u05D4')>-1||s.indexOf('\u05E8\u05E9\u05D5\u05DE\u05D4')>-1)c='g';
+  else if(s.indexOf('\u05DE\u05D7\u05D5\u05E7\u05D4')>-1||s.indexOf('\u05DE\u05D7\u05D5\u05E1\u05DC')>-1)c='r';
+  else if(s.indexOf('\u05E4\u05D9\u05E8\u05D5\u05E7')>-1)c='o';
+  return'<span class="bd bd-'+c+'">'+s+'</span>';
+}
+
+function doSearch(){
+  var q=document.getElementById('q').value.trim();
+  if(!q)return;
+  var ld=document.getElementById('ld'),res=document.getElementById('res'),sm=document.getElementById('sm'),em=document.getElementById('em');
+  ld.className='ld show';res.innerHTML='';sm.className='smb';em.className='es';
+  var isNum=/^\d{5,9}$/.test(q);
+  var url=isNum?API+'/enrich?id='+q:API+'/search?name='+encodeURIComponent(q)+'&registry=all&limit=20';
+  fetch(url,{headers:H}).then(function(r){return r.json()}).then(function(d){
+    ld.className='ld';
+    if(!d.success){em.className='es show';return}
+    if(isNum){
+      sm.innerHTML='<span class="smt">Enriched data for <strong>'+q+'</strong></span>';
+      sm.className='smb show';
+      res.innerHTML=renderEnriched(d.data);
+    }else{
+      var items=d.data.results||[];
+      if(!items.length){em.className='es show';return}
+      var types=d.data.totalByType||{},tb='';
+      for(var t in types)if(types[t]>0)tb+='<span class="bd bd-'+(tc[t]||'gr')+'">'+((tl[t]||t)+': '+types[t].toLocaleString())+'</span>';
+      sm.innerHTML='<span class="smt"><strong>'+d.data.total.toLocaleString()+'</strong> results</span><div class="smty">'+tb+'</div>';
+      sm.className='smb show';
+      for(var i=0;i<items.length;i++)res.innerHTML+=renderCard(items[i],i);
+    }
+  }).catch(function(e){ld.className='ld';em.querySelector('p').textContent='Error: '+e.message;em.className='es show'});
+}
+
+function renderCard(r,i){
+  var type=r.registryType||'company';
+  var name=r.name||r.companyName||'-';
+  var nameEn=r.nameEn||r.companyNameEn||'';
+  var id=r.entityNumber||r.companyNumber||'';
+  var city=r.city||'';
+  var date=r.incorporationDate||'';
+  return'<div class="rc" onclick="togD('+i+','+id+')"><div class="rh"><div><div class="rn">'+name+'</div>'+(nameEn?'<div class="rne">'+nameEn+'</div>':'')+'</div><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="bd bd-'+(tc[type]||'gr')+'">'+(tl[type]||type)+'</span> '+sb(r.status)+'</div></div><div class="rm"><div class="mi"># '+id+'</div>'+(city?'<div class="mi">&#128205; '+city+'</div>':'')+(date?'<div class="mi">&#128197; '+date+'</div>':'')+'</div><div class="dp" id="dp-'+i+'"><div style="text-align:center;color:#94a3b8;padding:12px">Loading...</div></div></div>';
+}
+
+function renderEnriched(r){
+  var e=r.enrichment||{},risk=e.risk||{},comp=e.computed||{},val=e.validation||{};
+  var rc=risk.score>=75?'#059669':risk.score>=50?'#ea580c':'#dc2626';
+  var name=r.companyName||r.name||'-',nameEn=r.companyNameEn||r.nameEn||'';
+  var fh='';
+  (risk.factors||[]).forEach(function(f){
+    var ic=f.impact>=0?'\u2705':'\u26A0\uFE0F';
+    fh+='<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f5f5f5"><span>'+ic+' '+f.detail+'</span><span style="font-weight:600;color:'+(f.impact>=0?'#059669':'#dc2626')+'">'+(f.impact>=0?'+':'')+f.impact+'</span></div>';
+  });
+  return'<div class="rc" style="cursor:default"><div class="rh"><div><div class="rn" style="font-size:22px">'+name+'</div>'+(nameEn?'<div class="rne" style="font-size:16px">'+nameEn+'</div>':'')+'</div>'+sb(r.status)+'</div>'+
+  '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:20px 0;padding:20px;background:#f8fafc;border-radius:12px">'+
+  '<div style="text-align:center"><div style="font-size:36px;font-weight:800;color:'+rc+'">'+(risk.score||'-')+'</div><div style="font-size:12px;color:#94a3b8;margin-top:4px">Risk Score</div></div>'+
+  '<div style="text-align:center"><div style="font-size:36px;font-weight:800;color:#1a1a2e">'+(comp.ageYears||'-')+'</div><div style="font-size:12px;color:#94a3b8;margin-top:4px">Years Active</div></div>'+
+  '<div style="text-align:center"><div style="font-size:36px;font-weight:800;color:#2563eb">'+(comp.estimatedSize||'-')+'</div><div style="font-size:12px;color:#94a3b8;margin-top:4px">Est. Size</div></div>'+
+  '</div>'+
+  '<div class="rb"><div class="rf" style="width:'+(risk.score||0)+'%;background:'+rc+'"></div></div>'+
+  '<div class="dg">'+
+  '<div class="di"><div class="dl">Entity Number</div><div class="dv">'+(r.entityNumber||r.companyNumber||'-')+'</div></div>'+
+  '<div class="di"><div class="dl">Type</div><div class="dv">'+(r.companyType||r.entityType||'-')+'</div></div>'+
+  '<div class="di"><div class="dl">Founded</div><div class="dv">'+(r.incorporationDate||'-')+'</div></div>'+
+  '<div class="di"><div class="dl">Address</div><div class="dv">'+(comp.fullAddress||'-')+'</div></div>'+
+  '<div class="di"><div class="dl">ID Valid</div><div class="dv">'+(val.valid?'\u2705 Valid '+val.type:'\u274C Invalid')+'</div></div>'+
+  '<div class="di"><div class="dl">Reporting</div><div class="dv">'+(comp.reportingUpToDate?'\u2705 Up to date':'\u26A0\uFE0F Outdated')+'</div></div>'+
+  '<div class="di"><div class="dl">Violator</div><div class="dv">'+(comp.isViolator?'\u26A0\uFE0F Yes':'\u2705 No')+'</div></div>'+
+  '<div class="di"><div class="dl">Purpose</div><div class="dv">'+(r.purpose||'-')+'</div></div>'+
+  '</div>'+
+  (fh?'<div style="margin-top:20px"><div style="font-size:13px;font-weight:600;color:#64748b;margin-bottom:8px">RISK FACTORS</div>'+fh+'</div>':'')+
+  '</div>';
+}
+
+function togD(i,id){
+  var p=document.getElementById('dp-'+i);
+  if(p.className.indexOf('show')>-1){p.className='dp';return}
+  p.className='dp show';
+  if(!id)return;
+  fetch(API+'/enrich?id='+id,{headers:H}).then(function(r){return r.json()}).then(function(d){
+    if(!d.success){p.innerHTML='<div style="color:#dc2626">Not found</div>';return}
+    var e=d.data.enrichment||{},risk=e.risk||{},comp=e.computed||{};
+    var rc=risk.score>=75?'#059669':risk.score>=50?'#ea580c':'#dc2626';
+    p.innerHTML='<div style="display:flex;gap:24px;margin-bottom:12px">'+
+    '<div><span style="font-size:28px;font-weight:800;color:'+rc+'">'+risk.score+'</span><span style="font-size:13px;color:#94a3b8"> /100 risk</span></div>'+
+    '<div><span style="font-size:28px;font-weight:800">'+(comp.ageYears||'?')+'</span><span style="font-size:13px;color:#94a3b8"> years</span></div>'+
+    '<div><span class="bd bd-'+(comp.isViolator?'r':'g')+'">'+(comp.isViolator?'Violator':'Clean')+'</span></div>'+
+    '</div><div class="rb"><div class="rf" style="width:'+risk.score+'%;background:'+rc+'"></div></div>'+
+    (comp.fullAddress?'<div style="margin-top:8px;font-size:13px;color:#64748b">\uD83D\uDCCD '+comp.fullAddress+'</div>':'');
+  }).catch(function(){p.innerHTML='<div style="color:#dc2626">Error</div>'});
+}
+</script>
+</body>
+</html>
