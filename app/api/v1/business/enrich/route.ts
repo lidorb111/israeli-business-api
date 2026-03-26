@@ -58,7 +58,7 @@ export async function GET(req: NextRequest) {
     const wantPhone = new URL(req.url).searchParams.get('phone') === 'true';
     let contact = null;
     if (wantPhone) {
-      const companyName = String(mapped.companyName || mapped.name || '');
+      const companyName = String(mapped.name || '');
       const city = String(mapped.city || '');
       contact = await lookupPhone(companyName, city);
     }
@@ -84,7 +84,7 @@ export async function GET(req: NextRequest) {
             ageYears,
             estimatedSize,
             fullAddress: address || null,
-            isActive: mapped.status === 'פעילה',
+            isActive: String(mapped.status || '').includes('פעילה'),
             isViolator: !!mapped.violator,
             reportingUpToDate: lastReport >= new Date().getFullYear() - 1,
           },

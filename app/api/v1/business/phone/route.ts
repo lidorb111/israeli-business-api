@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
     }
 
     const mapped = mapRecord(data.result.records[0]);
-    const companyName = String(mapped.companyName || '');
+    const companyName = String(mapped.name || '');
     const city = String(mapped.city || '');
 
     const contact = await lookupPhone(companyName, city);
@@ -27,8 +27,8 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({
         success: true,
         data: {
-          companyNumber: mapped.companyNumber,
-          companyName: mapped.companyName,
+          entityNumber: mapped.entityNumber,
+          name: mapped.name,
           contact: null,
           message: 'No phone number found for this company',
         },
@@ -38,9 +38,9 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({
       success: true,
       data: {
-        companyNumber: mapped.companyNumber,
-        companyName: mapped.companyName,
-        companyNameEn: mapped.companyNameEn,
+        entityNumber: mapped.entityNumber,
+        name: mapped.name,
+        nameEn: mapped.nameEn,
         contact,
       },
     }, { headers: corsHeaders() });
