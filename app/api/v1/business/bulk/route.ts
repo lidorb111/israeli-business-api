@@ -19,20 +19,32 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const data = await queryCompanies({ ids, limit: ids.length });
-    const records = data.result.records.map(mapRecord);
+    // Fetch all IDs in parallel
+    const results = await Promise.all(
+      ids.map(async (id) => {
+        try {
+          const data = await queryCompanies({ id, limit: 1 });
+          if (data.result.records.length > 0) {
+            return mapRecord(data.result.records[0]);
+          }
+          return null;
+        } catch {
+          return null;
+        }
+      })
+    );
 
-    // Mark which IDs were found vs not found
-    const foundIds = new Set(records.map((r: Record<string, unknown>) => r.companyNumber));
+    const found = results.filter((r): r is Record<string, unknown> => r !== null);
+    const foundIds = new Set(found.map((r) => r.companyNumber));
     const notFound = ids.filter((id) => !foundIds.has(id));
 
     return NextResponse.json({
       success: true,
       data: {
-        found: records.length,
+        found: found.length,
         notFound: notFound.length,
         notFoundIds: notFound,
-        results: records,
+        results: found,
       },
       source: 'Israeli Corporations Authority (רשם החברות)',
     }, { headers: corsHeaders() });
