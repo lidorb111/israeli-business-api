@@ -3,29 +3,86 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Israeli Business API — Search 832K+ Entities</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<title>בדיקת חברות ישראליות — חיפוש, אימות, ציון סיכון</title>
+<meta name="description" content="חפש מידע על 832,000+ חברות, עמותות, שותפויות ואגודות שיתופיות ישראליות. אימות ח.פ., ציון סיכון, מספרי טלפון."/>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',-apple-system,sans-serif;background:#fafbfc;color:#1a1a2e}
-.hero{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#1a4a7a 100%);padding:60px 20px 80px;text-align:center;position:relative;overflow:hidden}
+body{font-family:'Heebo',-apple-system,sans-serif;background:#fafbfc;color:#1a1a2e;direction:rtl}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#1a4a7a 100%);padding:50px 20px 90px;text-align:center;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 50%,rgba(56,189,248,.08) 0%,transparent 50%),radial-gradient(circle at 70% 50%,rgba(99,102,241,.06) 0%,transparent 50%);animation:fl 20s ease-in-out infinite}
 @keyframes fl{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,10px)}}
-.hero-c{position:relative;z-index:1;max-width:700px;margin:0 auto}
-.hero h1{color:#fff;font-size:42px;font-weight:800;margin-bottom:12px;letter-spacing:-1px}
-.hero p{color:#94a3b8;font-size:18px;margin-bottom:36px;line-height:1.6}
-.hl{color:#38bdf8}
-.sb{background:#fff;border-radius:20px;padding:8px;display:flex;gap:0;box-shadow:0 25px 60px rgba(0,0,0,.3),0 0 0 1px rgba(255,255,255,.1);max-width:600px;margin:0 auto}
-.sb input{flex:1;border:none;outline:none;padding:18px 24px;font-size:18px;font-family:inherit;border-radius:16px;color:#1a1a2e;background:transparent;min-width:0}
-.sb input::placeholder{color:#94a3b8}
-.sb button{background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;border:none;padding:18px 32px;font-size:16px;font-weight:600;border-radius:14px;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .2s}
+.hero-c{position:relative;z-index:1;max-width:750px;margin:0 auto}
+.hero h1{color:#fff;font-size:40px;font-weight:800;margin-bottom:14px;line-height:1.3}
+.hero h1 span{color:#38bdf8}
+.hero p{color:#94a3b8;font-size:18px;margin-bottom:32px;line-height:1.7}
+.free-tag{display:inline-block;background:rgba(56,189,248,.15);color:#38bdf8;padding:6px 16px;border-radius:100px;font-size:14px;font-weight:600;margin-bottom:20px}
+
+/* Search */
+.sb{background:#fff;border-radius:20px;padding:8px;display:flex;gap:0;box-shadow:0 25px 60px rgba(0,0,0,.3);max-width:620px;margin:0 auto}
+.sb input{flex:1;border:none;outline:none;padding:18px 24px;font-size:18px;font-family:inherit;border-radius:16px;color:#1a1a2e;background:transparent;min-width:0;text-align:right}
+.sb input::placeholder{color:#b0b8c4}
+.sb button{background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;border:none;padding:18px 32px;font-size:16px;font-weight:700;border-radius:14px;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .2s}
 .sb button:hover{transform:scale(1.02);box-shadow:0 4px 15px rgba(37,99,235,.4)}
 .sb button:active{transform:scale(.98)}
-.stats{display:flex;justify-content:center;gap:40px;margin-top:32px;flex-wrap:wrap}
-.st{text-align:center}
-.st-n{color:#fff;font-size:24px;font-weight:700}
-.st-l{color:#64748b;font-size:13px;margin-top:4px}
-.ra{max-width:800px;margin:-40px auto 0;padding:0 20px 60px;position:relative;z-index:2}
+.search-hint{color:#64748b;font-size:13px;margin-top:12px}
+.search-hint span{color:#94a3b8;background:rgba(255,255,255,.08);padding:2px 8px;border-radius:4px;margin:0 4px;font-family:monospace;direction:ltr;display:inline-block}
+
+/* Stats */
+.stats{display:flex;justify-content:center;gap:32px;margin-top:28px;flex-wrap:wrap}
+.st{text-align:center;background:rgba(255,255,255,.05);padding:12px 20px;border-radius:12px}
+.st-n{color:#fff;font-size:22px;font-weight:700}
+.st-l{color:#64748b;font-size:12px;margin-top:4px}
+
+/* Counter */
+.counter-bar{max-width:620px;margin:16px auto 0;display:flex;justify-content:space-between;align-items:center}
+.counter{color:#94a3b8;font-size:13px}
+.counter b{color:#38bdf8}
+.upgrade-link{color:#facc15;font-size:13px;text-decoration:none;font-weight:600}
+.upgrade-link:hover{text-decoration:underline}
+
+/* Trust */
+.trust{display:flex;justify-content:center;gap:24px;margin-top:24px;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:6px;color:#64748b;font-size:13px}
+
+/* Features */
+.features{max-width:900px;margin:0 auto;padding:60px 20px}
+.features h2{text-align:center;font-size:28px;font-weight:800;margin-bottom:8px}
+.features>p{text-align:center;color:#64748b;margin-bottom:40px;font-size:16px}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.feat{background:#fff;border-radius:16px;padding:28px;border:1px solid #f0f0f5;transition:all .2s}
+.feat:hover{box-shadow:0 8px 25px rgba(0,0,0,.06);transform:translateY(-2px)}
+.feat-icon{font-size:32px;margin-bottom:12px}
+.feat h3{font-size:16px;font-weight:700;margin-bottom:6px}
+.feat p{font-size:14px;color:#64748b;line-height:1.6}
+
+/* Pricing */
+.pricing{background:#0f172a;padding:60px 20px}
+.pricing h2{text-align:center;color:#fff;font-size:28px;font-weight:800;margin-bottom:8px}
+.pricing>p{text-align:center;color:#94a3b8;margin-bottom:40px;font-size:16px}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto}
+.price-card{background:#1e293b;border-radius:16px;padding:32px;border:1px solid #334155;position:relative}
+.price-card.pop{border-color:#2563eb;box-shadow:0 0 0 1px #2563eb}
+.price-pop-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#2563eb;color:#fff;padding:4px 16px;border-radius:100px;font-size:12px;font-weight:600}
+.price-name{color:#94a3b8;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+.price-amount{color:#fff;font-size:36px;font-weight:800;margin:12px 0 4px}
+.price-amount span{font-size:16px;font-weight:400;color:#64748b}
+.price-desc{color:#64748b;font-size:14px;margin-bottom:20px}
+.price-features{list-style:none;padding:0}
+.price-features li{color:#cbd5e1;font-size:14px;padding:8px 0;border-bottom:1px solid #334155;display:flex;align-items:center;gap:8px}
+.price-features li:last-child{border:none}
+.price-btn{display:block;width:100%;margin-top:20px;padding:14px;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;text-align:center;text-decoration:none}
+.price-btn-free{background:#334155;color:#fff}
+.price-btn-free:hover{background:#475569}
+.price-btn-main{background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff}
+.price-btn-main:hover{transform:scale(1.02);box-shadow:0 4px 15px rgba(37,99,235,.4)}
+.price-btn-gold{background:linear-gradient(135deg,#d97706,#f59e0b);color:#fff}
+.price-btn-gold:hover{transform:scale(1.02);box-shadow:0 4px 15px rgba(217,119,6,.4)}
+
+/* Results */
+.ra{max-width:800px;margin:-50px auto 0;padding:0 20px 40px;position:relative;z-index:2}
 .ld{text-align:center;padding:40px;color:#64748b;display:none}
 .ld.show{display:block}
 .sp{width:36px;height:36px;border:3px solid #e2e8f0;border-top-color:#2563eb;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
@@ -36,74 +93,237 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#fafbfc;color:#1a1a
 .rn{font-size:18px;font-weight:700;color:#1a1a2e}
 .rne{font-size:14px;color:#64748b;margin-top:2px}
 .bd{display:inline-flex;align-items:center;padding:4px 12px;border-radius:100px;font-size:12px;font-weight:600;white-space:nowrap}
-.bd-g{background:#ecfdf5;color:#059669}
-.bd-r{background:#fef2f2;color:#dc2626}
-.bd-o{background:#fff7ed;color:#ea580c}
-.bd-b{background:#eff6ff;color:#2563eb}
-.bd-p{background:#f5f3ff;color:#7c3aed}
-.bd-gr{background:#f8fafc;color:#64748b}
+.bd-g{background:#ecfdf5;color:#059669}.bd-r{background:#fef2f2;color:#dc2626}.bd-o{background:#fff7ed;color:#ea580c}.bd-b{background:#eff6ff;color:#2563eb}.bd-p{background:#f5f3ff;color:#7c3aed}.bd-gr{background:#f8fafc;color:#64748b}
 .rm{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid #f0f0f5}
 .mi{font-size:13px;color:#64748b;display:flex;align-items:center;gap:4px}
 .dp{display:none;margin-top:16px;padding-top:16px;border-top:1px solid #f0f0f5}
 .dp.show{display:block}
 .rb{height:8px;background:#f0f0f5;border-radius:4px;overflow:hidden;margin-top:8px}
 .rf{height:100%;border-radius:4px;transition:width .6s ease}
+.dg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.di .dl{font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px}
+.di .dv{font-size:14px;color:#1a1a2e;font-weight:500;margin-top:2px}
 .smb{background:#fff;border-radius:16px;padding:16px 24px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid #f0f0f5;display:none;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .smb.show{display:flex}
-.smt{font-size:15px;color:#64748b}
-.smt strong{color:#1a1a2e}
+.smt{font-size:15px;color:#64748b}.smt strong{color:#1a1a2e}
 .smty{display:flex;gap:8px;flex-wrap:wrap}
 .es{text-align:center;padding:60px 20px;display:none}
 .es.show{display:block}
 .es .icon{font-size:48px;margin-bottom:16px}
 .es p{color:#94a3b8;font-size:16px}
-.dg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
-.di .dl{font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px}
-.di .dv{font-size:14px;color:#1a1a2e;font-weight:500;margin-top:2px}
-.ft{text-align:center;padding:40px 20px;color:#94a3b8;font-size:13px}
+
+/* Upgrade modal */
+.modal-bg{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:100;align-items:center;justify-content:center}
+.modal-bg.show{display:flex}
+.modal{background:#fff;border-radius:20px;padding:40px;max-width:420px;width:90%;text-align:center}
+.modal h3{font-size:22px;font-weight:700;margin-bottom:8px}
+.modal p{color:#64748b;margin-bottom:24px}
+.modal-close{background:none;border:none;font-size:24px;position:absolute;top:16px;left:16px;cursor:pointer;color:#94a3b8}
+
+/* Footer */
+.ft{text-align:center;padding:40px 20px;color:#94a3b8;font-size:13px;border-top:1px solid #f0f0f5}
 .ft a{color:#2563eb;text-decoration:none}
-@media(max-width:640px){
-.hero h1{font-size:28px}.hero p{font-size:15px}.sb{flex-direction:column}.sb button{width:100%}.stats{gap:24px}.dg{grid-template-columns:1fr}.rh{flex-direction:column}
+
+/* CTA */
+.cta{background:linear-gradient(135deg,#2563eb,#1d4ed8);padding:50px 20px;text-align:center}
+.cta h2{color:#fff;font-size:28px;font-weight:800;margin-bottom:12px}
+.cta p{color:#bfdbfe;font-size:16px;margin-bottom:24px}
+.cta-btn{display:inline-block;background:#fff;color:#2563eb;padding:16px 40px;border-radius:12px;font-size:16px;font-weight:700;text-decoration:none;transition:all .2s}
+.cta-btn:hover{transform:scale(1.02);box-shadow:0 8px 25px rgba(0,0,0,.2)}
+
+@media(max-width:768px){
+.hero h1{font-size:28px}.sb{flex-direction:column}.sb button{width:100%}.stats{gap:16px}.feat-grid{grid-template-columns:1fr}.price-grid{grid-template-columns:1fr}.rh{flex-direction:column}.dg{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
+<!-- Hero -->
 <div class="hero">
 <div class="hero-c">
-<h1>Search Any Israeli Business</h1>
-<p>Search <span class="hl">832,968</span> companies, nonprofits, partnerships &amp; cooperatives from the official government registry</p>
+<div class="free-tag">&#x1F389; 5 חיפושים חינם — בלי הרשמה</div>
+<h1>בדקו כל <span>חברה ישראלית</span> בשניות</h1>
+<p>חפשו מידע על 832,000+ חברות, עמותות, שותפויות ואגודות שיתופיות. ישירות מרשם החברות הממשלתי. מעודכן יומית.</p>
+
 <div class="sb">
-<input id="q" type="text" placeholder="Search by name or number..." autofocus/>
-<button onclick="doSearch()">Search</button>
+<input id="q" type="text" placeholder="&#x1F50D; הקלידו שם חברה או מספר ח.פ..." autofocus/>
+<button onclick="doSearch()">חיפוש</button>
 </div>
+
+<div class="search-hint">
+נסו: <span>גוגל</span> <span>אפל</span> <span>513695478</span> <span>בנק</span>
+</div>
+
+<div class="counter-bar">
+<div class="counter">נותרו לך <b id="remaining">5</b> חיפושים חינם</div>
+<a href="#pricing" class="upgrade-link">שדרגו לחיפושים ללא הגבלה &larr;</a>
+</div>
+
 <div class="stats">
-<div class="st"><div class="st-n">722K</div><div class="st-l">Companies</div></div>
-<div class="st"><div class="st-n">74K</div><div class="st-l">Nonprofits</div></div>
-<div class="st"><div class="st-n">28K</div><div class="st-l">Partnerships</div></div>
-<div class="st"><div class="st-n">7K</div><div class="st-l">Cooperatives</div></div>
+<div class="st"><div class="st-n">722K</div><div class="st-l">חברות</div></div>
+<div class="st"><div class="st-n">74K</div><div class="st-l">עמותות</div></div>
+<div class="st"><div class="st-n">28K</div><div class="st-l">שותפויות</div></div>
+<div class="st"><div class="st-n">7K</div><div class="st-l">אגודות</div></div>
+</div>
+
+<div class="trust">
+<div class="trust-item">&#x1F3DB;&#xFE0F; מידע ממשלתי רשמי</div>
+<div class="trust-item">&#x1F504; מתעדכן יומית</div>
+<div class="trust-item">&#x26A1; תוצאות מיידיות</div>
+<div class="trust-item">&#x1F512; מאובטח</div>
 </div>
 </div>
 </div>
 
+<!-- Results -->
 <div class="ra">
-<div class="ld" id="ld"><div class="sp"></div>Searching all registries...</div>
+<div class="ld" id="ld"><div class="sp"></div>מחפש ב-4 מאגרים ממשלתיים...</div>
 <div class="smb" id="sm"></div>
 <div id="res"></div>
-<div class="es" id="em"><div class="icon">&#128269;</div><p>No results found. Try a different search.</p></div>
+<div class="es" id="em"><div class="icon">&#128269;</div><p>לא נמצאו תוצאות. נסו מילת חיפוש אחרת.</p></div>
 </div>
 
+<!-- Features -->
+<div class="features" id="features">
+<h2>מה תוכלו לבדוק?</h2>
+<p>כל המידע שצריך על כל עסק ישראלי — במקום אחד</p>
+<div class="feat-grid">
+<div class="feat">
+<div class="feat-icon">&#x1F50D;</div>
+<h3>חיפוש חברה</h3>
+<p>חפשו לפי שם בעברית או אנגלית, מספר ח.פ., או מספר עמותה. תוצאות מ-4 מאגרים ממשלתיים.</p>
+</div>
+<div class="feat">
+<div class="feat-icon">&#x2705;</div>
+<h3>אימות ח.פ. / ת.ז.</h3>
+<p>בדקו תקינות מספר חברה, תעודת זהות, או מספר עמותה. ספרת ביקורת אוטומטית.</p>
+</div>
+<div class="feat">
+<div class="feat-icon">&#x1F4CA;</div>
+<h3>ציון סיכון</h3>
+<p>ציון 0-100 לכל חברה. בודק: סטטוס, הפרות, דוחות שנתיים, גיל החברה, מגבלות.</p>
+</div>
+<div class="feat">
+<div class="feat-icon">&#x1F4DE;</div>
+<h3>מספר טלפון</h3>
+<p>מקבלים טלפון, אתר אינטרנט, דירוג גוגל, וקישור ל-Google Maps.</p>
+</div>
+<div class="feat">
+<div class="feat-icon">&#x1F4E6;</div>
+<h3>בדיקה מרובה</h3>
+<p>בדקו עד 100 חברות בבת אחת. אידיאלי לבדיקת ספקים, ייבוא רשימות, compliance.</p>
+</div>
+<div class="feat">
+<div class="feat-icon">&#x1F514;</div>
+<h3>התראות שינוי סטטוס</h3>
+<p>קבלו התראה כשחברה משנה סטטוס — פעילה, בפירוק, מחוקה. Webhook אוטומטי.</p>
+</div>
+</div>
+</div>
+
+<!-- Pricing -->
+<div class="pricing" id="pricing">
+<h2>&#x1F4B0; תמחור</h2>
+<p>התחילו בחינם, שדרגו כשצריך</p>
+<div class="price-grid">
+<div class="price-card">
+<div class="price-name">חינם</div>
+<div class="price-amount">&#8362;0 <span>/ חודש</span></div>
+<div class="price-desc">לנסות ולהתרשם</div>
+<ul class="price-features">
+<li>&#x2705; 5 חיפושים ביום</li>
+<li>&#x2705; חיפוש לפי שם / ח.פ.</li>
+<li>&#x2705; אימות מספר חברה</li>
+<li>&#x274C; ציון סיכון</li>
+<li>&#x274C; מספר טלפון</li>
+<li>&#x274C; בדיקה מרובה</li>
+</ul>
+<a class="price-btn price-btn-free" href="#q">התחילו עכשיו</a>
+</div>
+
+<div class="price-card pop">
+<div class="price-pop-tag">&#x2B50; הכי פופולרי</div>
+<div class="price-name">מקצועי</div>
+<div class="price-amount">&#8362;69 <span>/ חודש</span></div>
+<div class="price-desc">ליועצים, רואי חשבון, עורכי דין</div>
+<ul class="price-features">
+<li>&#x2705; 1,000 חיפושים ביום</li>
+<li>&#x2705; חיפוש בכל 4 המאגרים</li>
+<li>&#x2705; אימות ח.פ. / ת.ז.</li>
+<li>&#x2705; ציון סיכון</li>
+<li>&#x2705; בדיקה מרובה (100)</li>
+<li>&#x274C; מספר טלפון</li>
+</ul>
+<a class="price-btn price-btn-main" href="#" onclick="alert('צרו קשר: lidorba100@gmail.com')">לרכישה</a>
+</div>
+
+<div class="price-card">
+<div class="price-name">פרימיום</div>
+<div class="price-amount">&#8362;179 <span>/ חודש</span></div>
+<div class="price-desc">לחברות פינטק, ביטוח, אשראי</div>
+<ul class="price-features">
+<li>&#x2705; חיפושים ללא הגבלה</li>
+<li>&#x2705; כל 4 המאגרים</li>
+<li>&#x2705; ציון סיכון מלא</li>
+<li>&#x2705; מספר טלפון + אתר + דירוג</li>
+<li>&#x2705; בדיקה מרובה (100)</li>
+<li>&#x2705; התראות שינוי סטטוס</li>
+</ul>
+<a class="price-btn price-btn-gold" href="#" onclick="alert('צרו קשר: lidorba100@gmail.com')">לרכישה</a>
+</div>
+</div>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+<h2>צריכים גישה ל-API?</h2>
+<p>שלבו את המידע הזה ישירות באפליקציה או במערכת שלכם</p>
+<a class="cta-btn" href="https://rapidapi.com/behar-system-behar-system-default/api/israeli-business-lookup" target="_blank">קבלו API Key &#x2192;</a>
+</div>
+
+<!-- Footer -->
 <div class="ft">
-Powered by <a href="https://data.gov.il" target="_blank">data.gov.il</a> &mdash; Israeli Corporations Authority<br/>
-<a href="https://rapidapi.com" target="_blank">Get API Access &rarr;</a>
+&#x1F3DB;&#xFE0F; המידע מבוסס על נתונים ממשלתיים רשמיים מ-<a href="https://data.gov.il" target="_blank">data.gov.il</a><br/>
+רשם החברות &bull; רשם העמותות &bull; רשם השותפויות &bull; רשם האגודות השיתופיות<br/><br/>
+<a href="https://rapidapi.com/behar-system-behar-system-default/api/israeli-business-lookup" target="_blank">API</a> &bull;
+<a href="https://apify.com/behar-system/israeli-business-lookup" target="_blank">Apify</a> &bull;
+Built by Lidor Behar
+</div>
+
+<!-- Upgrade Modal -->
+<div class="modal-bg" id="modal">
+<div class="modal">
+<h3>&#x1F512; החיפושים החינמיים נגמרו</h3>
+<p>שדרגו לחבילה מקצועית וקבלו חיפושים ללא הגבלה, ציון סיכון, ועוד.</p>
+<a class="price-btn price-btn-main" href="#pricing" onclick="document.getElementById('modal').className='modal-bg'" style="display:inline-block;width:auto;padding:14px 40px">לצפייה בחבילות</a>
+</div>
 </div>
 
 <script>
 var API='/api/v1/business',KEY='test-key-12345',H={'Content-Type':'application/json','X-API-Key':KEY};
 var tc={company:'b',nonprofit:'p',partnership:'o',cooperative:'g'};
-var tl={company:'Company',nonprofit:'Nonprofit',partnership:'Partnership',cooperative:'Cooperative'};
+var tl={company:'\u05D7\u05D1\u05E8\u05D4',nonprofit:'\u05E2\u05DE\u05D5\u05EA\u05D4',partnership:'\u05E9\u05D5\u05EA\u05E4\u05D5\u05EA',cooperative:'\u05D0\u05D2\u05D5\u05D3\u05D4 \u05E9\u05D9\u05EA\u05D5\u05E4\u05D9\u05EA'};
+var FREE_LIMIT=5;
+var used=parseInt(localStorage.getItem('biz_used')||'0');
+updateCounter();
 
 document.getElementById('q').addEventListener('keydown',function(e){if(e.key==='Enter')doSearch()});
+
+function updateCounter(){
+  var r=Math.max(0,FREE_LIMIT-used);
+  document.getElementById('remaining').textContent=r;
+}
+
+function checkLimit(){
+  if(used>=FREE_LIMIT){
+    document.getElementById('modal').className='modal-bg show';
+    return false;
+  }
+  used++;
+  localStorage.setItem('biz_used',used);
+  updateCounter();
+  return true;
+}
 
 function sb(s){
   if(!s)return'';
@@ -115,6 +335,7 @@ function sb(s){
 }
 
 function doSearch(){
+  if(!checkLimit())return;
   var q=document.getElementById('q').value.trim();
   if(!q)return;
   var ld=document.getElementById('ld'),res=document.getElementById('res'),sm=document.getElementById('sm'),em=document.getElementById('em');
@@ -125,19 +346,19 @@ function doSearch(){
     ld.className='ld';
     if(!d.success){em.className='es show';return}
     if(isNum){
-      sm.innerHTML='<span class="smt">Enriched data for <strong>'+q+'</strong></span>';
+      sm.innerHTML='<span class="smt">\u05EA\u05D5\u05E6\u05D0\u05D5\u05EA \u05E2\u05D1\u05D5\u05E8 <strong>'+q+'</strong></span>';
       sm.className='smb show';
       res.innerHTML=renderEnriched(d.data);
     }else{
       var items=d.data.results||[];
       if(!items.length){em.className='es show';return}
       var types=d.data.totalByType||{},tb='';
-      for(var t in types)if(types[t]>0)tb+='<span class="bd bd-'+(tc[t]||'gr')+'">'+((tl[t]||t)+': '+types[t].toLocaleString())+'</span>';
-      sm.innerHTML='<span class="smt"><strong>'+d.data.total.toLocaleString()+'</strong> results</span><div class="smty">'+tb+'</div>';
+      for(var t in types)if(types[t]>0)tb+='<span class="bd bd-'+(tc[t]||'gr')+'">'+(tl[t]||t)+': '+types[t].toLocaleString()+'</span>';
+      sm.innerHTML='<span class="smt"><strong>'+d.data.total.toLocaleString()+'</strong> \u05EA\u05D5\u05E6\u05D0\u05D5\u05EA</span><div class="smty">'+tb+'</div>';
       sm.className='smb show';
       for(var i=0;i<items.length;i++)res.innerHTML+=renderCard(items[i],i);
     }
-  }).catch(function(e){ld.className='ld';em.querySelector('p').textContent='Error: '+e.message;em.className='es show'});
+  }).catch(function(e){ld.className='ld';em.querySelector('p').textContent='\u05E9\u05D2\u05D9\u05D0\u05D4: '+e.message;em.className='es show'});
 }
 
 function renderCard(r,i){
@@ -147,7 +368,7 @@ function renderCard(r,i){
   var id=r.entityNumber||r.companyNumber||'';
   var city=r.city||'';
   var date=r.incorporationDate||'';
-  return'<div class="rc" onclick="togD('+i+','+id+')"><div class="rh"><div><div class="rn">'+name+'</div>'+(nameEn?'<div class="rne">'+nameEn+'</div>':'')+'</div><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="bd bd-'+(tc[type]||'gr')+'">'+(tl[type]||type)+'</span> '+sb(r.status)+'</div></div><div class="rm"><div class="mi"># '+id+'</div>'+(city?'<div class="mi">&#128205; '+city+'</div>':'')+(date?'<div class="mi">&#128197; '+date+'</div>':'')+'</div><div class="dp" id="dp-'+i+'"><div style="text-align:center;color:#94a3b8;padding:12px">Loading...</div></div></div>';
+  return'<div class="rc" onclick="togD('+i+','+id+')"><div class="rh"><div><div class="rn">'+name+'</div>'+(nameEn?'<div class="rne">'+nameEn+'</div>':'')+'</div><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="bd bd-'+(tc[type]||'gr')+'">'+(tl[type]||type)+'</span> '+sb(r.status)+'</div></div><div class="rm"><div class="mi">\u05D7.\u05E4. '+id+'</div>'+(city?'<div class="mi">&#128205; '+city+'</div>':'')+(date?'<div class="mi">&#128197; '+date+'</div>':'')+'</div><div class="dp" id="dp-'+i+'"><div style="text-align:center;color:#94a3b8;padding:12px">\u05D8\u05D5\u05E2\u05DF...</div></div></div>';
 }
 
 function renderEnriched(r){
@@ -161,22 +382,22 @@ function renderEnriched(r){
   });
   return'<div class="rc" style="cursor:default"><div class="rh"><div><div class="rn" style="font-size:22px">'+name+'</div>'+(nameEn?'<div class="rne" style="font-size:16px">'+nameEn+'</div>':'')+'</div>'+sb(r.status)+'</div>'+
   '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:20px 0;padding:20px;background:#f8fafc;border-radius:12px">'+
-  '<div style="text-align:center"><div style="font-size:36px;font-weight:800;color:'+rc+'">'+(risk.score||'-')+'</div><div style="font-size:12px;color:#94a3b8;margin-top:4px">Risk Score</div></div>'+
-  '<div style="text-align:center"><div style="font-size:36px;font-weight:800;color:#1a1a2e">'+(comp.ageYears||'-')+'</div><div style="font-size:12px;color:#94a3b8;margin-top:4px">Years Active</div></div>'+
-  '<div style="text-align:center"><div style="font-size:36px;font-weight:800;color:#2563eb">'+(comp.estimatedSize||'-')+'</div><div style="font-size:12px;color:#94a3b8;margin-top:4px">Est. Size</div></div>'+
+  '<div style="text-align:center"><div style="font-size:36px;font-weight:800;color:'+rc+'">'+(risk.score||'-')+'</div><div style="font-size:12px;color:#94a3b8;margin-top:4px">\u05E6\u05D9\u05D5\u05DF \u05E1\u05D9\u05DB\u05D5\u05DF</div></div>'+
+  '<div style="text-align:center"><div style="font-size:36px;font-weight:800;color:#1a1a2e">'+(comp.ageYears||'-')+'</div><div style="font-size:12px;color:#94a3b8;margin-top:4px">\u05E9\u05E0\u05D5\u05EA \u05E4\u05E2\u05D9\u05DC\u05D5\u05EA</div></div>'+
+  '<div style="text-align:center"><div style="font-size:36px;font-weight:800;color:#2563eb">'+(comp.estimatedSize||'-')+'</div><div style="font-size:12px;color:#94a3b8;margin-top:4px">\u05D2\u05D5\u05D3\u05DC \u05DE\u05E9\u05D5\u05E2\u05E8</div></div>'+
   '</div>'+
   '<div class="rb"><div class="rf" style="width:'+(risk.score||0)+'%;background:'+rc+'"></div></div>'+
   '<div class="dg">'+
-  '<div class="di"><div class="dl">Entity Number</div><div class="dv">'+(r.entityNumber||r.companyNumber||'-')+'</div></div>'+
-  '<div class="di"><div class="dl">Type</div><div class="dv">'+(r.companyType||r.entityType||'-')+'</div></div>'+
-  '<div class="di"><div class="dl">Founded</div><div class="dv">'+(r.incorporationDate||'-')+'</div></div>'+
-  '<div class="di"><div class="dl">Address</div><div class="dv">'+(comp.fullAddress||'-')+'</div></div>'+
-  '<div class="di"><div class="dl">ID Valid</div><div class="dv">'+(val.valid?'\u2705 Valid '+val.type:'\u274C Invalid')+'</div></div>'+
-  '<div class="di"><div class="dl">Reporting</div><div class="dv">'+(comp.reportingUpToDate?'\u2705 Up to date':'\u26A0\uFE0F Outdated')+'</div></div>'+
-  '<div class="di"><div class="dl">Violator</div><div class="dv">'+(comp.isViolator?'\u26A0\uFE0F Yes':'\u2705 No')+'</div></div>'+
-  '<div class="di"><div class="dl">Purpose</div><div class="dv">'+(r.purpose||'-')+'</div></div>'+
+  '<div class="di"><div class="dl">\u05DE\u05E1\u05E4\u05E8 \u05D7.\u05E4.</div><div class="dv">'+(r.entityNumber||r.companyNumber||'-')+'</div></div>'+
+  '<div class="di"><div class="dl">\u05E1\u05D5\u05D2</div><div class="dv">'+(r.companyType||r.entityType||'-')+'</div></div>'+
+  '<div class="di"><div class="dl">\u05EA\u05D0\u05E8\u05D9\u05DA \u05D4\u05EA\u05D0\u05D2\u05D3\u05D5\u05EA</div><div class="dv">'+(r.incorporationDate||'-')+'</div></div>'+
+  '<div class="di"><div class="dl">\u05DB\u05EA\u05D5\u05D1\u05EA</div><div class="dv">'+(comp.fullAddress||'-')+'</div></div>'+
+  '<div class="di"><div class="dl">\u05DE\u05E1\u05E4\u05E8 \u05EA\u05E7\u05D9\u05DF</div><div class="dv">'+(val.valid?'\u2705 \u05EA\u05E7\u05D9\u05DF':'\u274C \u05DC\u05D0 \u05EA\u05E7\u05D9\u05DF')+'</div></div>'+
+  '<div class="di"><div class="dl">\u05D3\u05D9\u05D5\u05D5\u05D7</div><div class="dv">'+(comp.reportingUpToDate?'\u2705 \u05DE\u05E2\u05D5\u05D3\u05DB\u05DF':'\u26A0\uFE0F \u05DC\u05D0 \u05DE\u05E2\u05D5\u05D3\u05DB\u05DF')+'</div></div>'+
+  '<div class="di"><div class="dl">\u05DE\u05E4\u05E8\u05D4</div><div class="dv">'+(comp.isViolator?'\u26A0\uFE0F \u05DB\u05DF':'\u2705 \u05DC\u05D0')+'</div></div>'+
+  '<div class="di"><div class="dl">\u05DE\u05D8\u05E8\u05D4</div><div class="dv">'+(r.purpose||'-')+'</div></div>'+
   '</div>'+
-  (fh?'<div style="margin-top:20px"><div style="font-size:13px;font-weight:600;color:#64748b;margin-bottom:8px">RISK FACTORS</div>'+fh+'</div>':'')+
+  (fh?'<div style="margin-top:20px"><div style="font-size:13px;font-weight:600;color:#64748b;margin-bottom:8px">\u05D2\u05D5\u05E8\u05DE\u05D9 \u05E1\u05D9\u05DB\u05D5\u05DF</div>'+fh+'</div>':'')+
   '</div>';
 }
 
@@ -186,16 +407,16 @@ function togD(i,id){
   p.className='dp show';
   if(!id)return;
   fetch(API+'/enrich?id='+id,{headers:H}).then(function(r){return r.json()}).then(function(d){
-    if(!d.success){p.innerHTML='<div style="color:#dc2626">Not found</div>';return}
+    if(!d.success){p.innerHTML='<div style="color:#dc2626">\u05DC\u05D0 \u05E0\u05DE\u05E6\u05D0</div>';return}
     var e=d.data.enrichment||{},risk=e.risk||{},comp=e.computed||{};
     var rc=risk.score>=75?'#059669':risk.score>=50?'#ea580c':'#dc2626';
     p.innerHTML='<div style="display:flex;gap:24px;margin-bottom:12px">'+
-    '<div><span style="font-size:28px;font-weight:800;color:'+rc+'">'+risk.score+'</span><span style="font-size:13px;color:#94a3b8"> /100 risk</span></div>'+
-    '<div><span style="font-size:28px;font-weight:800">'+(comp.ageYears||'?')+'</span><span style="font-size:13px;color:#94a3b8"> years</span></div>'+
-    '<div><span class="bd bd-'+(comp.isViolator?'r':'g')+'">'+(comp.isViolator?'Violator':'Clean')+'</span></div>'+
+    '<div><span style="font-size:28px;font-weight:800;color:'+rc+'">'+risk.score+'</span><span style="font-size:13px;color:#94a3b8"> /100 \u05E1\u05D9\u05DB\u05D5\u05DF</span></div>'+
+    '<div><span style="font-size:28px;font-weight:800">'+(comp.ageYears||'?')+'</span><span style="font-size:13px;color:#94a3b8"> \u05E9\u05E0\u05D9\u05DD</span></div>'+
+    '<div><span class="bd bd-'+(comp.isViolator?'r':'g')+'">'+(comp.isViolator?'\u05DE\u05E4\u05E8\u05D4':'\u05EA\u05E7\u05D9\u05DF')+'</span></div>'+
     '</div><div class="rb"><div class="rf" style="width:'+risk.score+'%;background:'+rc+'"></div></div>'+
     (comp.fullAddress?'<div style="margin-top:8px;font-size:13px;color:#64748b">\uD83D\uDCCD '+comp.fullAddress+'</div>':'');
-  }).catch(function(){p.innerHTML='<div style="color:#dc2626">Error</div>'});
+  }).catch(function(){p.innerHTML='<div style="color:#dc2626">\u05E9\u05D2\u05D9\u05D0\u05D4</div>'});
 }
 </script>
 </body>
