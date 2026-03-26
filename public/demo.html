@@ -27,6 +27,8 @@ a,button{transition:all .25s cubic-bezier(.4,0,.2,1)}
 .nav-links a:hover{color:#fff}
 .nav-cta{background:rgba(37,99,235,.15);color:#60a5fa;padding:8px 20px;border-radius:100px;font-weight:600;border:1px solid rgba(37,99,235,.3)}
 .nav-cta:hover{background:rgba(37,99,235,.25);color:#fff}
+.lang-select{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:8px 14px;font-family:inherit;font-size:13px;font-weight:600;outline:none;cursor:pointer}
+.lang-select option{color:#0f172a}
 
 /* Hero */
 .hero{background:linear-gradient(180deg,#0f172a 0%,#1e293b 100%);padding:80px 20px 100px;text-align:center;position:relative;overflow:hidden}
@@ -258,11 +260,17 @@ a,button{transition:all .25s cubic-bezier(.4,0,.2,1)}
 <nav class="nav">
 <a class="nav-logo" href="#">בדיקת<span>.חברות</span></a>
 <div class="nav-links">
+<select id="lang-select" class="lang-select" aria-label="Language">
+<option value="he">עברית</option>
+<option value="en">English</option>
+</select>
 <a href="#features">יכולות</a>
 <a href="#pricing">תמחור</a>
 <a class="nav-cta" href="#pricing">שדרוג</a>
 </div>
 </nav>
+
+<div id="google_translate_element" style="display:none"></div>
 
 <!-- Hero -->
 <div class="hero">
@@ -385,14 +393,14 @@ a,button{transition:all .25s cubic-bezier(.4,0,.2,1)}
 <div class="cta">
 <h2>מפתחים? שלבו את המידע ישירות במערכת שלכם</h2>
 <p>API מלא עם 10 endpoints — חיפוש, אימות, סיכון, טלפון, bulk, webhooks</p>
-<a class="cta-btn" href="https://rapidapi.com/behar-system-behar-system-default/api/israeli-business-lookup" target="_blank">&#x1F517; קבלו API Key</a>
+<a class="cta-btn" href="https://rapidapi.com/team/behar-system-behar-system-default" target="_blank">&#x1F517; קבלו API Key</a>
 </div>
 
 <!-- Footer -->
 <div class="ft">
 &#x1F3DB;&#xFE0F; מידע ממשלתי רשמי מ-<a href="https://data.gov.il" target="_blank">data.gov.il</a><br/>
 רשם החברות &bull; רשם העמותות &bull; רשם השותפויות &bull; רשם האגודות השיתופיות<br/><br/>
-<a href="https://rapidapi.com/behar-system-behar-system-default/api/israeli-business-lookup" target="_blank">API</a> &bull;
+<a href="https://rapidapi.com/team/behar-system-behar-system-default" target="_blank">API</a> &bull;
 <a href="https://apify.com/behar.system/israeli-business-lookup" target="_blank">Apify</a> &bull;
 Built by Behar Systems
 </div>
@@ -415,6 +423,44 @@ Built by Behar Systems
 </div>
 
 <script>
+var GT_LANG_KEY='site_lang';
+
+function googleTranslateElementInit(){
+  new google.translate.TranslateElement({
+    pageLanguage:'he',
+    includedLanguages:'he,en',
+    autoDisplay:false
+  },'google_translate_element');
+
+  setTimeout(function(){
+    var preferred=localStorage.getItem(GT_LANG_KEY)||'he';
+    var langSelect=document.getElementById('lang-select');
+    if(langSelect)langSelect.value=preferred;
+    applyGoogleLanguage(preferred);
+  },300);
+}
+
+function applyGoogleLanguage(lang){
+  localStorage.setItem(GT_LANG_KEY,lang);
+  document.documentElement.lang=lang;
+  document.documentElement.dir=lang==='he'?'rtl':'ltr';
+
+  var combo=document.querySelector('.goog-te-combo');
+  if(!combo)return;
+  if(combo.value===lang)return;
+  combo.value=lang;
+  combo.dispatchEvent(new Event('change'));
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  var langSelect=document.getElementById('lang-select');
+  if(!langSelect)return;
+  langSelect.value=localStorage.getItem(GT_LANG_KEY)||'he';
+  langSelect.addEventListener('change',function(e){
+    applyGoogleLanguage(e.target.value);
+  });
+});
+
 var API='/api/demo',API_FULL='/api/v1/business',H={'Content-Type':'application/json'};
 // Demo page uses /api/demo (public, rate-limited, no auth).
 // Phone lookup requires payment → uses /api/v1/business/phone with server-side key.
@@ -666,5 +712,6 @@ if(window.paypal){
   }).render('#paypal-premium');
 }
 </script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

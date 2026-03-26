@@ -5,7 +5,10 @@
     "version": "1.0.0",
     "description": "Search 832,000+ Israeli entities across 4 government registries in one API call. Companies, nonprofits, partnerships & cooperatives. Includes ID validation, risk scoring, bulk lookup, autocomplete, enrichment, and status monitoring.\n\n## Data Sources\n- Companies Registry (722K) — רשם החברות\n- Nonprofits Registry (74K) — עמותות\n- Partnerships Registry (28K) — שותפויות\n- Cooperatives Registry (7K) — אגודות שיתופיות\n\nUpdated daily from data.gov.il"
   },
-  "servers": [{ "url": "https://israeli-business-api.vercel.app" }],
+  "servers": [
+    { "url": "https://beharsystems.com" },
+    { "url": "https://israeli-business-api.vercel.app" }
+  ],
   "paths": {
     "/api/v1/business/search": {
       "get": {

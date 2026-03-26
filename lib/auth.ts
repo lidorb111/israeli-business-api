@@ -5,6 +5,8 @@ const ALLOWED_ORIGINS = [
   'https://israeli-business-api.vercel.app',
   'https://mashkantaspro.com',
   'https://www.mashkantaspro.com',
+  'https://beharsystems.com',
+  'https://www.beharsystems.com',
 ];
 
 function safeCompare(a: string, b: string): boolean {
