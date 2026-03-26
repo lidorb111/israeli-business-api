@@ -3,8 +3,10 @@ import { checkAuth, jsonError, corsHeaders } from '@/lib/auth';
 import { queryCompanies, mapRecord } from '@/lib/data-gov';
 import { validateIsraeliId } from '@/lib/israeli-id';
 import { calculateRiskScore } from '@/lib/risk-score';
+import { lookupPhone } from '@/lib/google-places';
 
 // GET /api/v1/business/enrich?id=513695478
+// GET /api/v1/business/enrich?id=513695478&phone=true  ← premium: adds phone, website, rating
 // Returns: company data + validation + risk score + estimated size + age
 export async function GET(req: NextRequest) {
   if (!checkAuth(req)) return jsonError('Unauthorized', 401, 'UNAUTHORIZED');
@@ -52,6 +54,15 @@ export async function GET(req: NextRequest) {
       .filter(Boolean)
       .join(' ');
 
+    // Phone enrichment (premium — uses Google Places API)
+    const wantPhone = new URL(req.url).searchParams.get('phone') === 'true';
+    let contact = null;
+    if (wantPhone) {
+      const companyName = String(mapped.companyName || mapped.name || '');
+      const city = String(mapped.city || '');
+      contact = await lookupPhone(companyName, city);
+    }
+
     return NextResponse.json({
       success: true,
       data: {
@@ -77,6 +88,7 @@ export async function GET(req: NextRequest) {
             isViolator: !!mapped.violator,
             reportingUpToDate: lastReport >= new Date().getFullYear() - 1,
           },
+          ...(contact ? { contact } : {}),
         },
       },
     }, { headers: corsHeaders() });

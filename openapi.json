@@ -1,0 +1,193 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Israeli Business Lookup",
+    "version": "1.0.0",
+    "description": "Search 832,000+ Israeli entities across 4 government registries in one API call. Companies, nonprofits, partnerships & cooperatives. Includes ID validation, risk scoring, bulk lookup, autocomplete, enrichment, and status monitoring.\n\n## Data Sources\n- Companies Registry (722K) — רשם החברות\n- Nonprofits Registry (74K) — עמותות\n- Partnerships Registry (28K) — שותפויות\n- Cooperatives Registry (7K) — אגודות שיתופיות\n\nUpdated daily from data.gov.il"
+  },
+  "servers": [{ "url": "https://israeli-business-api.vercel.app" }],
+  "paths": {
+    "/api/v1/business/search": {
+      "get": {
+        "operationId": "searchBusiness",
+        "summary": "Search Businesses",
+        "description": "Search by name or ID across all registries. Use registry=all to search companies + nonprofits + partnerships + cooperatives simultaneously.",
+        "tags": ["Search"],
+        "parameters": [
+          { "name": "name", "in": "query", "schema": { "type": "string" }, "description": "Search term (Hebrew or English)", "example": "google" },
+          { "name": "id", "in": "query", "schema": { "type": "string" }, "description": "Company/entity number", "example": "513695478" },
+          { "name": "registry", "in": "query", "schema": { "type": "string", "enum": ["companies", "all"] }, "description": "Search scope — 'companies' (default) or 'all' (4 registries)" },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "default": 10, "maximum": 100 } },
+          { "name": "offset", "in": "query", "schema": { "type": "integer", "default": 0 } }
+        ],
+        "responses": {
+          "200": { "description": "Search results" },
+          "400": { "description": "Missing parameters" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/api/v1/business/validate": {
+      "get": {
+        "operationId": "validateId",
+        "summary": "Validate ID Number",
+        "description": "Validate Israeli ID, company number (ח.פ.), or nonprofit number using Luhn check digit algorithm. Returns validity, entity type, and formatted number.",
+        "tags": ["Validation"],
+        "parameters": [
+          { "name": "id", "in": "query", "required": true, "schema": { "type": "string" }, "description": "ID or company number to validate", "example": "513695478" }
+        ],
+        "responses": {
+          "200": { "description": "Validation result with type detection" }
+        }
+      },
+      "post": {
+        "operationId": "validateBatch",
+        "summary": "Batch Validate IDs",
+        "description": "Validate up to 500 IDs in a single request. Returns valid/invalid count and per-ID results.",
+        "tags": ["Validation"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["ids"],
+                "properties": {
+                  "ids": { "type": "array", "items": { "type": "string" }, "maxItems": 500 }
+                }
+              },
+              "example": { "ids": ["513695478", "123456789", "510000011"] }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Batch validation results" }
+        }
+      }
+    },
+    "/api/v1/business/bulk": {
+      "post": {
+        "operationId": "bulkLookup",
+        "summary": "Bulk Company Lookup",
+        "description": "Look up multiple companies by ID in a single request. Returns found/not-found breakdown. Maximum 100 IDs per request.",
+        "tags": ["Search"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["ids"],
+                "properties": {
+                  "ids": { "type": "array", "items": { "type": "integer" }, "maxItems": 100 }
+                }
+              },
+              "example": { "ids": [513695478, 510000011, 999999999] }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Bulk lookup results with found/notFound breakdown" }
+        }
+      }
+    },
+    "/api/v1/business/autocomplete": {
+      "get": {
+        "operationId": "autocomplete",
+        "summary": "Autocomplete Company Name",
+        "description": "Fast type-ahead search returning compact results (id, name, status, city). Optimized for dropdown/search-as-you-type UIs. Minimum 2 characters.",
+        "tags": ["Search"],
+        "parameters": [
+          { "name": "q", "in": "query", "required": true, "schema": { "type": "string", "minLength": 2 }, "description": "Search prefix", "example": "goog" },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "default": 10, "maximum": 20 } }
+        ],
+        "responses": {
+          "200": { "description": "Autocomplete suggestions" }
+        }
+      }
+    },
+    "/api/v1/business/risk": {
+      "get": {
+        "operationId": "riskScore",
+        "summary": "Company Risk Score",
+        "description": "Calculate risk score (0-100) based on: company status, violator flag, annual report recency, company age, government ownership, and liability type. Returns score, risk level, and detailed factors.",
+        "tags": ["Intelligence"],
+        "parameters": [
+          { "name": "id", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Company number", "example": "510000011" }
+        ],
+        "responses": {
+          "200": { "description": "Risk assessment with score and factors" },
+          "404": { "description": "Company not found" }
+        }
+      }
+    },
+    "/api/v1/business/enrich": {
+      "get": {
+        "operationId": "enrichCompany",
+        "summary": "Enrich Company Data",
+        "description": "Full company intelligence: registry data + ID validation + risk score + computed fields (age, estimated size, full address, active status, violator flag, reporting status). One call = everything you need for KYB/due diligence.",
+        "tags": ["Intelligence"],
+        "parameters": [
+          { "name": "id", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Company number", "example": "513695478" }
+        ],
+        "responses": {
+          "200": { "description": "Enriched company profile" },
+          "404": { "description": "Company not found" }
+        }
+      }
+    },
+    "/api/v1/business/watch": {
+      "post": {
+        "operationId": "addWatch",
+        "summary": "Monitor Company Status",
+        "description": "Add a company to status monitoring. Receive a webhook POST when the company's status changes (e.g. active → dissolved).",
+        "tags": ["Monitoring"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["companyId", "webhookUrl"],
+                "properties": {
+                  "companyId": { "type": "integer", "example": 513695478 },
+                  "webhookUrl": { "type": "string", "format": "uri", "example": "https://your-app.com/webhook" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Watch created" }
+        }
+      },
+      "get": {
+        "operationId": "listWatches",
+        "summary": "List Monitored Companies",
+        "description": "List all companies you are monitoring.",
+        "tags": ["Monitoring"],
+        "responses": {
+          "200": { "description": "List of watches" }
+        }
+      },
+      "delete": {
+        "operationId": "removeWatch",
+        "summary": "Stop Monitoring",
+        "description": "Remove a company from monitoring.",
+        "tags": ["Monitoring"],
+        "parameters": [
+          { "name": "id", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Watch ID to remove" }
+        ],
+        "responses": {
+          "200": { "description": "Watch removed" }
+        }
+      }
+    }
+  },
+  "tags": [
+    { "name": "Search", "description": "Search and lookup across all registries" },
+    { "name": "Validation", "description": "Israeli ID and company number validation" },
+    { "name": "Intelligence", "description": "Risk scoring and data enrichment" },
+    { "name": "Monitoring", "description": "Company status change monitoring via webhooks" }
+  ]
+}
